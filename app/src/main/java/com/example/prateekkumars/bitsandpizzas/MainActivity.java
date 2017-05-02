@@ -1,6 +1,8 @@
 package com.example.prateekkumars.bitsandpizzas;
 
 import android.app.Activity;
+import android.app.Fragment;
+import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -61,7 +63,39 @@ public class MainActivity extends Activity {
 
         @Override
         public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+            selectItem(i);
+        }
+        private void selectItem(int position) {
+            Fragment fragment;
+            switch(position) {
+                case 1:
+                    fragment = new PizzaFragment();
+                    break;
+                case 2:
+                    fragment = new PastaFragment();
+                    break;
+                case 3:
+                    fragment = new StoresFragment();
+                    break;
+                default:
+                    fragment = new TopFragment();
+            }
 
+            setActionBarTitle(position);
+            FragmentTransaction ft = getFragmentManager().beginTransaction();
+            ft.replace(R.id.content_frame, fragment);
+            ft.addToBackStack(null);
+            ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+            ft.commit();
+        }
+        private void setActionBarTitle(int position) {
+            String title;
+            if (position == 0){
+                title = getResources().getString(R.string.app_name);
+            } else {
+                title = titles[position];
+            }
+            getActionBar().setTitle(title);
         }
     }
 }
