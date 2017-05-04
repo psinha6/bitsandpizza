@@ -16,5 +16,4 @@ public class PastaFragment extends ListFragment{
         setListAdapter(adapter);
         return super.onCreateView(inflater, container, savedInstanceState);
     }
-
 }
